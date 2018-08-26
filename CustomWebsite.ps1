@@ -1,12 +1,7 @@
 Configuration CustomWebsite
 {
-    PSModuleResource xWebAdministration
-    {
-        Ensure      = 'Present'
-        Module_name = 'xWebAdministration'
-    }
 
-    Import -DscResource -Module xWebAdministration    
+    Import-DscResource -ModuleName PSDesiredStateConfiguration    
 
     param ($MachineName)
 
@@ -39,32 +34,12 @@ Configuration CustomWebsite
 	    Name                   = 'Web-Asp-Net45'
 	}
 
-	xWebsite DefaultSite
-	{
-	    Ensure                 = 'Present'
-	    Name                   = 'Default Web Site'
-	    State                  = 'Stopped'
-	    PhysicalPath           = $Node.DefaultWebSitePath
-	    DependsOn              = "[WindowsFeature]IIS"
-	}
-
 	File WebContent
 	{
 	    Ensure                 = 'Present'
 	    SourcePath             = $Node.SourcePath
-	    DestinationPath        = $Node.DestinationPath
-	    Recurse                = $true
-            Type                   = "Directory"
+	    DestinationPath        = $Node.DefaultWebsitePath
 	    DependsOn              = "[WindowsFeature]AspNet45"
-	}
-
-	xWebsite CustomWebSite
-	{
-	    Ensure                 = 'Present'
-	    Name                   = $Node.WebsiteName
-	    State                  = 'Started'
-	    PhysicalPath           = $Node.DestinationPath
-	    DependsOn              = "[File]WebContent"
 	}
     }
 }
@@ -74,7 +49,7 @@ $ConfigurationData = @{
 	    @{
 	        NodeName           = "*"
 		WebsiteName        = "AzureTest"
-		SourcePath         = "C:\CustomWebsite\"
+		SourcePath         = "C:\CustomWebsite\index.html"
 		DestinationPath    = "C:\inetpub\AzureTest"
 		DefaultWebsitePath = "C:\inetpub\wwwroot"
 	    },
