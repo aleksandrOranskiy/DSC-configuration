@@ -1,8 +1,7 @@
 Configuration CustomWebsite
 {
-
-Import-DscResource -ModuleName PSDesiredStateConfiguration    
 param ($MachineName)
+Import-DscResource -ModuleName PSDesiredStateConfiguration    
 
 Node $MachineName
 {
