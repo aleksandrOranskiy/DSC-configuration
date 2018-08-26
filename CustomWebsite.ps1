@@ -1,5 +1,11 @@
 Configuration CustomWebsite
 {
+    PSModuleResource xWebAdministration
+    {
+        Ensure      = 'Present'
+        Module_name = 'xWebAdministration'
+    }
+
     Import-DscResource -Module xWebAdministration    
 
     param ($MachineName)
@@ -84,5 +90,3 @@ $ConfigurationData = @{
 	    }
 	)
 }
-
-Install-Module -Name xWebAdministration
