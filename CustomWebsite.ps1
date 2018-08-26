@@ -47,7 +47,7 @@ Configuration CustomWebsite
 	{
 	    Ensure                 = 'Present'
 	    SourcePath             = $Node.SourcePath
-	    Destination            = $Node.DestinationPath
+	    DestinationPath        = $Node.DestinationPath
 	    Recurse                = $true
             Type                   = "Directory"
 	    DependsOn              = "[WindowsFeature]AspNet45"
