@@ -1,5 +1,6 @@
 Configuration CustomWebsite
 {
+    Install-Module -Name xWebAdministration
     Import-DscResource -Module xWebAdministration    
 
     param ($MachineName)
